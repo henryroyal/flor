@@ -157,6 +157,18 @@ class Experiment(object):
         :return:
         """
         # TODO: update out_artifacts so that they have explicit parents
+        # Start of out_artifacts work
+        if out_artifacts:
+            temp_artifacts = []
+            for out_art in out_artifacts:
+                if not util.isArtifact(out_art):
+                    raise TypeError("Literal detected among output artifacts.")
+                    return
+        #         do something in here that updates each artifact such that the parent is this action
+        #         and perhaps link them
+
+        # End of out_artifacts work
+
         filenameWithFunc, _, _ = func
 
         if filenameWithFunc in self.xp_state.eg.loc_map:
@@ -175,17 +187,6 @@ class Experiment(object):
                         in_art = self.literal(in_art)
                 temp_artifacts.append(in_art)
             in_artifacts = temp_artifacts
-
-        # Start of out_artifacts work
-        if out_artifacts:
-            temp_artifacts = []
-            for out_art in out_artifacts:
-                print("hellooooo...")
-        #         do something in here that updates each artifact such that the parent is this action
-        #         and perhaps link them
-
-
-        # End of out_artifacts work
         act = Action(func, [code_artifact, ] + in_artifacts, self.xp_state)
         self.xp_state.eg.node(act)
         self.xp_state.eg.edge(code_artifact, act)
