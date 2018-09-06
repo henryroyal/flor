@@ -21,6 +21,7 @@ def isFlorClass(obj):
 def isLiteral(obj):
     return type(obj).__name__ == "Literal"
 
+# should we make a new isArtifact identifier?
 
 def isPickle(loc):
     try:

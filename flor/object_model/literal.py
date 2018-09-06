@@ -11,6 +11,7 @@ from uuid import uuid4
 
 class Literal(Resource):
 
+    # TODO: remove instances of name
     def __init__(self, v,
                  name: str,
                  parent,

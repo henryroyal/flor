@@ -87,6 +87,7 @@ class Experiment(object):
         else:
             raise ModuleNotFoundError("Only 'git' or 'ground' backends supported, but '{}' entered".format(backend))
 
+    # TODO: get rid of name
     def literal(self, v=None, name=None, parent=None):
         """
 
@@ -129,6 +130,7 @@ class Experiment(object):
 
         return lit
 
+    # TODO: get rid of name
     def artifact(self, loc, name, parent=None, manifest=None):
         """
 
@@ -146,13 +148,15 @@ class Experiment(object):
 
         return art
 
-    def action(self, func, in_artifacts=None):
+    # TODO: change this so it receives in and out artifact dictionaries
+    def action(self, func, in_artifacts=None, out_artifacts=None):
         """
 
         :param func:
         :param in_artifacts:
         :return:
         """
+        # TODO: update out_artifacts so that they have explicit parents
         filenameWithFunc, _, _ = func
 
         if filenameWithFunc in self.xp_state.eg.loc_map:
@@ -171,6 +175,17 @@ class Experiment(object):
                         in_art = self.literal(in_art)
                 temp_artifacts.append(in_art)
             in_artifacts = temp_artifacts
+
+        # Start of out_artifacts work
+        if out_artifacts:
+            temp_artifacts = []
+            for out_art in out_artifacts:
+                print("hellooooo...")
+        #         do something in here that updates each artifact such that the parent is this action
+        #         and perhaps link them
+
+
+        # End of out_artifacts work
         act = Action(func, [code_artifact, ] + in_artifacts, self.xp_state)
         self.xp_state.eg.node(act)
         self.xp_state.eg.edge(code_artifact, act)

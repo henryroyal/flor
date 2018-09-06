@@ -9,7 +9,7 @@ from flor.engine.expander import Expander
 from flor.engine.consolidator import Consolidator
 
 class Artifact(Resource):
-
+    # TODO: remove name from this
     def __init__(self, loc: str,
                  parent, name,
                  manifest: Dict[str, "Artifact"],
@@ -32,6 +32,7 @@ class Artifact(Resource):
     def getLocation(self):
         return self.loc
 
+    # TODO: Remove function
     def get_name(self):
         return self.name
 
